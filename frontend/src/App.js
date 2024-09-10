@@ -1,9 +1,5 @@
 function App() {
-  return (
-    <div className="App " style={{ backgroundColor: "red" }}>
-      hello
-    </div>
-  );
+  return <></>;
 }
 
 export default App;

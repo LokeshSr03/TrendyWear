@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 const userSchema = mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
     },
@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    address: {
+      type: String,
     },
     isAdmin: {
       type: Boolean,
@@ -32,7 +35,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 userSchema.pre("save", async function (next) {
-  if (!this.password.isModified) {
+  if (!this.isModified("password")) {
     next();
   }
   const salt = await bcrypt.genSalt(10);

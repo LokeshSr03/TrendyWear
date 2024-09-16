@@ -26,4 +26,21 @@ const register = asyncHandler(async (req, res) => {
   }
 });
 
-export { register };
+const login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      username: user.username,
+      email: user.email,
+      address: user.address,
+      token: generateToken(user._id),
+    });
+  } else {
+    throw new Error("Invalid Email and Password");
+  }
+});
+
+export { register, login };

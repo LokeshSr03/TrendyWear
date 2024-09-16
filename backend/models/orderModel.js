@@ -12,25 +12,36 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     status: {
-      type: Boolean,
+      type: String,
+      enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
+      default: "pending",
       required: true,
     },
-    created_at: {
-      type: Date,
-      default: Date.now(),
-    },
-    updated_at: {
-      type: Date,
-      default: Date.now(),
-    },
+    items: [
+      {
+        product_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          min: 1, // Ensure quantity is always at least 1
+        },
+        price: {
+          type: Number,
+          required: true,
+          min: 0, // Ensure price cannot be negative
+        },
+      },
+    ],
   },
-  { timestamps: true }
+  { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
 
-orderSchema.pre("save", function (next) {
-  this.updated_at = Date.now();
-  next();
-});
-const Order = mongoose.model("order", orderSchema);
+// Pre-save hook can be removed since Mongoose already handles `updatedAt` with `timestamps: true`.
+
+const Order = mongoose.model("Order", orderSchema);
 
 export default Order;

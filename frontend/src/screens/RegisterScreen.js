@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../actions/userActions";
 
 const RegisterScreen = () => {
   // Individual state hooks for each field
@@ -10,6 +12,7 @@ const RegisterScreen = () => {
 
   // Hook to navigate programmatically
   const navigate = useNavigate();
+  const disptch = useDispatch();
 
   // Form submit handler
   const handleSubmit = (e) => {
@@ -19,10 +22,7 @@ const RegisterScreen = () => {
       return;
     }
     // Submit form logic here
-    console.log({ username, email, password });
-
-    // After successful registration, navigate to login page or home
-    navigate("/login");
+    disptch(registerUser(username, email, password));
   };
 
   return (

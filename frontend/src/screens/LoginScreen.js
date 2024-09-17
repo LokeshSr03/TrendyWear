@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../actions/userActions";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Handle login logic here (API call, validation, etc.)
-    console.log({ email, password });
+    dispatch(loginUser(email, password));
 
-    // If login is successful, navigate to the home page or dashboard
-    navigate("/home"); // Change to the desired route after login
+    if (userInfo) {
+      navigate("/");
+    }
   };
 
   return (

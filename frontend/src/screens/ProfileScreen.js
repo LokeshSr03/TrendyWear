@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "../actions/userActions";
+import { getUserProfile, updateUser } from "../actions/userActions";
 
 const ProfileScreen = () => {
   const [username, setUsername] = useState("");
@@ -10,6 +10,9 @@ const ProfileScreen = () => {
 
   const userProfile = useSelector((state) => state.userProfile);
   const { loading, error, profile } = userProfile;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,7 +29,8 @@ const ProfileScreen = () => {
     e.preventDefault();
 
     // Handle profile update logic here (API call, validation, etc.)
-
+    dispatch(updateUser(username, email, address, password));
+    alert("Updated Successfully");
     // Add logic to update profile (e.g., call an API and handle success/failure)
   };
 
@@ -49,7 +53,6 @@ const ProfileScreen = () => {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
             className="mt-1 block w-full px-4 py-2 border rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500"
-            required
           />
         </div>
 
@@ -62,7 +65,6 @@ const ProfileScreen = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             className="mt-1 block w-full px-4 py-2 border rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500"
-            required
           />
         </div>
 
@@ -87,7 +89,6 @@ const ProfileScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             className="mt-1 block w-full px-4 py-2 border rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500"
-            required
           />
         </div>
 

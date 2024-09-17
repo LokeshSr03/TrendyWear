@@ -63,7 +63,7 @@ const getProfile = asyncHandler(async (req, res) => {
 
 const updateProfile = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { username, email, password, address } = req.body;
+  const { username, email, address, password } = req.body;
 
   const user = await User.findById(id);
 

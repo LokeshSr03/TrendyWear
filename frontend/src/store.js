@@ -5,12 +5,14 @@ import {
   userRegisterReducer,
   userLoginReducer,
   userProfileReducer,
+  userUpdateReducer,
 } from "./reducers/userReducer";
 
 const reducers = combineReducers({
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
   userProfile: userProfileReducer,
+  userUpdate: userUpdateReducer,
 });
 
 const userFromLocalStorage = localStorage.getItem("userInfo")

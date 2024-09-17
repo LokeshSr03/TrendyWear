@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MenuIcon, XIcon, ChevronDownIcon } from "@heroicons/react/outline"; // Menu and Close icons from HeroIcons
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FiShoppingCart } from "react-icons/fi"; // Import the cart icon
@@ -8,10 +8,17 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
 
+  const navigate = useNavigate();
+
   const userLogin = useSelector((state) => state.userLogin);
 
   const { userInfo } = userLogin;
 
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/login");
+    }
+  }, [userInfo]);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen); // Toggle menu state
   };

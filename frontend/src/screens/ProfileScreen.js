@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../actions/userActions";
 
 const ProfileScreen = () => {
   const [username, setUsername] = useState("");
@@ -6,17 +8,24 @@ const ProfileScreen = () => {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
 
+  const userProfile = useSelector((state) => state.userProfile);
+  const { loading, error, profile } = userProfile;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (profile) {
+      setUsername(profile.username);
+      setEmail(profile.email);
+      setAddress(profile.address);
+      console.log(profile);
+    } else {
+      dispatch(getUserProfile());
+    }
+  }, [profile, dispatch]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Handle profile update logic here (API call, validation, etc.)
-    const updatedProfile = {
-      username,
-      email,
-      address,
-      password,
-    };
-    console.log(updatedProfile);
 
     // Add logic to update profile (e.g., call an API and handle success/failure)
   };

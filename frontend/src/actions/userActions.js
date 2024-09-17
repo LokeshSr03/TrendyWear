@@ -76,13 +76,13 @@ const loginUser = (email, password) => async (dispatch) => {
   }
 };
 
-const getUserProfile = (id) => async (dispatch, state) => {
+const getUserProfile = () => async (dispatch, getstate) => {
   try {
     dispatch({ type: USER_PROFILE_REQUEST });
 
     const {
       userLogin: { userInfo },
-    } = state;
+    } = getstate();
 
     const config = {
       headers: {
@@ -90,7 +90,7 @@ const getUserProfile = (id) => async (dispatch, state) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}`);
+    const { data } = await axios.get(`/api/users/${userInfo._id}`, config);
 
     dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
   } catch (error) {

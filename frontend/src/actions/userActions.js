@@ -64,7 +64,7 @@ const loginUser = (email, password) => async (dispatch) => {
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem("userInfo", JSON.parse(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -76,4 +76,31 @@ const loginUser = (email, password) => async (dispatch) => {
   }
 };
 
-export { registerUser, loginUser };
+const getUserProfile = (id) => async (dispatch, state) => {
+  try {
+    dispatch({ type: USER_PROFILE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = state;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/users/${id}`);
+
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export { registerUser, loginUser, getUserProfile };

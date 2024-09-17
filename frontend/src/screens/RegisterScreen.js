@@ -10,10 +10,18 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+
   // Hook to navigate programmatically
   const navigate = useNavigate();
-  const disptch = useDispatch();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, dispatch, navigate]);
   // Form submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +30,7 @@ const RegisterScreen = () => {
       return;
     }
     // Submit form logic here
-    disptch(registerUser(username, email, password));
+    dispatch(registerUser(username, email, password));
   };
 
   return (

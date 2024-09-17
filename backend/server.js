@@ -9,7 +9,6 @@ import orderRoutes from "./routes/orderRoutes.js";
 dotenv.config();
 connectDb();
 const app = express();
-
 app.use(express.json());
 
 app.get("/", (req, res) => {

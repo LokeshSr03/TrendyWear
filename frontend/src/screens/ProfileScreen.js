@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile, updateUser } from "../actions/userActions";
+import { USER_PROFILE_RESET } from "../constants/userConstants";
 
 const ProfileScreen = () => {
   const [username, setUsername] = useState("");
@@ -9,29 +10,30 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState("");
 
   const userProfile = useSelector((state) => state.userProfile);
-  const { loading, error, profile } = userProfile;
+  const { loading, error, user } = userProfile;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (profile) {
-      setUsername(profile.username);
-      setEmail(profile.email);
-      setAddress(profile.address);
-      console.log(profile);
+    if (user) {
+      setUsername(user.username);
+      setEmail(user.email);
+      setAddress(user.address);
+      console.log(user);
     } else {
       dispatch(getUserProfile());
     }
-  }, [profile, dispatch]);
+  }, [user, dispatch]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Handle profile update logic here (API call, validation, etc.)
+    // Handle user update logic here (API call, validation, etc.)
     dispatch(updateUser(username, email, address, password));
+    dispatch({ type: USER_PROFILE_RESET });
     alert("Updated Successfully");
-    // Add logic to update profile (e.g., call an API and handle success/failure)
+    // Add logic to update user (e.g., call an API and handle success/failure)
   };
 
   return (

@@ -76,9 +76,11 @@ const updateProfile = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
 
     res.json({
+      _id: updatedUser._id,
       username: updatedUser.username,
       email: updatedUser.email,
       address: updatedUser.address,
+      token: generateToken(updatedUser._id),
     });
   } else {
     throw new Error("User not found");

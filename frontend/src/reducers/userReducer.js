@@ -56,7 +56,7 @@ const userProfileReducer = (state = {}, action) => {
       return { loading: true };
 
     case USER_PROFILE_SUCCESS:
-      return { loading: false, profile: action.payload };
+      return { loading: false, user: action.payload };
 
     case USER_PROFILE_FAIL:
       return { loading: false, error: action.payload };
@@ -75,7 +75,7 @@ const userUpdateReducer = (state = { updatedUser: {} }, action) => {
       return { loading: true };
 
     case USER_UPDATE_SUCCESS:
-      return { loading: false, updatedUser: action.payload };
+      return { loading: false, user: action.payload };
 
     case USER_UPDATE_FAIL:
       return { loading: false, error: action.payload };

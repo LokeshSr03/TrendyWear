@@ -17,6 +17,10 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: String, // Store the image path
+    required: true,
+  },
   created_at: {
     type: Date,
     default: Date.now(),

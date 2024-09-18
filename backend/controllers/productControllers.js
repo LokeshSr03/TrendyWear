@@ -1,16 +1,28 @@
-import { json } from "express";
 import Product from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
 
 const createProducts = asyncHandler(async (req, res) => {
   const { name, description, price, stock } = req.body;
+  const image = req.file ? req.file.path : null; // Get image path from multer
 
-  const product = await Product.create({ name, description, price, stock });
+  if (!image) {
+    res.status(400);
+    throw new Error("Image is required");
+  }
+
+  const product = await Product.create({
+    name,
+    description,
+    price,
+    stock,
+    image,
+  });
 
   if (product) {
-    res.status(400).json(product);
+    res.status(201).json(product);
   } else {
-    throw new Error(`Product not found`);
+    res.status(400);
+    throw new Error("Invalid product data");
   }
 });
 

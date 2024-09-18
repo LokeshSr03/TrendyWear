@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+import {} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../actions/productActions";
 const ProductForm = () => {
   // State variables for form fields
   const [name, setName] = useState("");
@@ -8,18 +10,11 @@ const ProductForm = () => {
   const [stock, setStock] = useState("");
   const [image, setImage] = useState("");
 
-  // Function to handle form submission
+  const dispatch = useDispatch(); // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle submission logic here (e.g., API call)
-    const productData = {
-      name,
-      description,
-      price,
-      stock,
-      image,
-    };
-    console.log("Product Data:", productData);
+    dispatch(createProduct(name, description, price, stock, image));
     // Reset form fields if needed
     setName("");
     setDescription("");

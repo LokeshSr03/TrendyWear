@@ -3,6 +3,7 @@ import {
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_REQUEST,
 } from "../constants/productConstants";
+import axios from "axios";
 
 const createProduct =
   (name, description, price, stock, image) => async (dispatch, getstate) => {

@@ -5,11 +5,6 @@ const createProducts = asyncHandler(async (req, res) => {
   const { name, description, price, stock } = req.body;
   const image = req.file ? req.file.path : null; // Get image path from multer
 
-  if (!image) {
-    res.status(400);
-    throw new Error("Image is required");
-  }
-
   const product = await Product.create({
     name,
     description,

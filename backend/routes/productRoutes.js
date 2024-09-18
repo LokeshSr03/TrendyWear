@@ -7,14 +7,10 @@ import {
   getProducts,
   updateProduct,
 } from "../controllers/productControllers.js";
-import upload from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .post(protect, admin, upload.single("image"), createProducts)
-  .get(getProducts);
+router.route("/").post(protect, admin, createProducts).get(getProducts);
 router
   .route("/:id")
   .get(getProductById)

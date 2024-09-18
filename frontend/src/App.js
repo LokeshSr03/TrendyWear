@@ -4,6 +4,7 @@ import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import HomeScreen from "./screens/HomeScreen";
 import Header from "./components/Header";
+import ProductForm from "./screens/ProductForm";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
+        <Route path="/product" element={<ProductForm />} />
+
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />

@@ -1,26 +1,25 @@
 import React, { useState } from "react";
-import {} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../actions/productActions";
+
 const ProductForm = () => {
-  // State variables for form fields
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null); // File object
 
-  const dispatch = useDispatch(); // Function to handle form submission
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle submission logic here (e.g., API call)
+    // Dispatch createProduct action with form data
     dispatch(createProduct(name, description, price, stock, image));
-    // Reset form fields if needed
-    // setName("");
-    // setDescription("");
-    // setPrice("");
-    // setStock("");
-    // setImage("");
+  };
+
+  const handleImageChange = (e) => {
+    // Capture the selected file
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -46,6 +45,7 @@ const ProductForm = () => {
             required
           />
         </div>
+
         <div className="mb-4">
           <label
             htmlFor="description"
@@ -62,6 +62,7 @@ const ProductForm = () => {
             required
           />
         </div>
+
         <div className="mb-4">
           <label
             htmlFor="price"
@@ -79,6 +80,7 @@ const ProductForm = () => {
             required
           />
         </div>
+
         <div className="mb-4">
           <label
             htmlFor="stock"
@@ -96,22 +98,23 @@ const ProductForm = () => {
             required
           />
         </div>
+
         <div className="mb-4">
           <label
             htmlFor="image"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Image URL
+            Image
           </label>
           <input
             type="file"
             id="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            onChange={handleImageChange} // Capture the file object
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Product Image URL"
+            required
           />
         </div>
+
         <div className="flex items-center justify-between">
           <button
             type="submit"

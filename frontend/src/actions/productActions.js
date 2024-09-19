@@ -6,37 +6,41 @@ import {
 import axios from "axios";
 
 const createProduct =
-  (name, description, price, stock, image) => async (dispatch, getstate) => {
+  (name, description, price, stock, image) => async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_CREATE_REQUEST });
+
       const {
         userLogin: { userInfo },
-      } = getstate();
+      } = getState();
 
       const config = {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data", // Ensure this is set for sending images
         },
       };
 
-      const { data } = await axios.post(
-        "/api/products",
-        { name, description, price, stock },
-        config
-      );
+      // Create a FormData object and append each field
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("stock", stock);
+      if (image) {
+        formData.append("image", image);
+      }
 
-      await axios.post("/api/uploads", { image }, config);
-      console.log("data");
+      const { data } = await axios.post("/api/products", formData, config);
 
-      dispatch({ type: PRODUCT_CREATE_SUCCESS });
+      dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: PRODUCT_CREATE_FAIL,
         payload:
-          error.response && error.response.data.mesaage
-            ? error.response.data.mesaage
-            : error.mesaage,
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };

@@ -16,11 +16,11 @@ const ProductForm = () => {
     // Handle submission logic here (e.g., API call)
     dispatch(createProduct(name, description, price, stock, image));
     // Reset form fields if needed
-    setName("");
-    setDescription("");
-    setPrice("");
-    setStock("");
-    setImage("");
+    // setName("");
+    // setDescription("");
+    // setPrice("");
+    // setStock("");
+    // setImage("");
   };
 
   return (
@@ -110,7 +110,6 @@ const ProductForm = () => {
             onChange={(e) => setImage(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Product Image URL"
-            required
           />
         </div>
         <div className="flex items-center justify-between">

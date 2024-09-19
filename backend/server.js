@@ -6,12 +6,14 @@ import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoute.js";
+import cors from "cors";
 
 import path from "path";
 
 dotenv.config();
 connectDb();
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {

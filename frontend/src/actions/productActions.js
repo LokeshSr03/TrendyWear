@@ -16,14 +16,18 @@ const createProduct =
       const config = {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
+          "Content-Type": "multipart/form-data",
         },
       };
 
       const { data } = await axios.post(
         "/api/products",
-        { name, description, price, stock, image },
+        { name, description, price, stock },
         config
       );
+
+      await axios.post("/api/uploads", { image }, config);
+      console.log("data");
 
       dispatch({ type: PRODUCT_CREATE_SUCCESS });
     } catch (error) {

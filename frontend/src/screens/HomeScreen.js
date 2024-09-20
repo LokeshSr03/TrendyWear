@@ -1,36 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "../actions/productActions";
 
 function HomeScreen() {
-  const [products] = useState([
-    {
-      id: 1,
-      name: "Product 1",
-      description: "This is a description for Product 1.",
-      price: "$25.00",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      description: "This is a description for Product 2.",
-      price: "$30.00",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      description: "This is a description for Product 3.",
-      price: "$45.00",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      description: "This is a description for Product 4.",
-      price: "$60.00",
-      image: "https://via.placeholder.com/150",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+
+  const dispatch = useDispatch();
+  const productAll = useSelector((state) => state.productAll);
+  const { loading, error, products: productss } = productAll;
+  useEffect(() => {
+    if (products.length === 0) {
+      dispatch(getProducts());
+    } else {
+      setProducts(productss);
+    }
+  }, [products, dispatch]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">

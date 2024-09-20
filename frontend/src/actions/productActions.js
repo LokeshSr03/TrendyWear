@@ -2,6 +2,9 @@ import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_REQUEST,
+  PRODUCT_GET_FAIL,
+  PRODUCT_GET_REQUEST,
+  PRODUCT_GET_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
 
@@ -45,4 +48,22 @@ const createProduct =
     }
   };
 
-export { createProduct };
+const getProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_GET_REQUEST });
+
+    const { data } = await axios.get("/api/products");
+
+    dispatch({ type: PRODUCT_GET_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_GET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export { createProduct, getProducts };

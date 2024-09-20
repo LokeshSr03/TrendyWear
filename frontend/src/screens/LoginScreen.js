@@ -72,7 +72,7 @@ const LoginScreen = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500 transition duration-300"
+            className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-500 transition duration-300"
           >
             Login
           </button>
@@ -80,7 +80,7 @@ const LoginScreen = () => {
           {/* Link to Register Page */}
           <div className="text-center mt-4">
             Don't have an account?{" "}
-            <Link to="/register" className="text-indigo-600 hover:underline">
+            <Link to="/register" className="text-teal-600 hover:underline">
               Register here
             </Link>
           </div>

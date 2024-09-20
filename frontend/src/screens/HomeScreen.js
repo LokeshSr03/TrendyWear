@@ -37,14 +37,14 @@ function HomeScreen() {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-48 object-cover rounded-t-md mb-6"
+                className="w-full h-60 object-cover rounded-t-md mb-4"
               />
               <div className="flex flex-col items-center">
                 <h2 className="text-lg font-bold mb-2 text-gray-900">
                   {product.name}
                 </h2>
                 <p className="text-gray-600 text-sm mb-4 text-center">
-                  {product.description}
+                  {product.description.slice(0, 45)}
                 </p>
                 <span className="text-teal-600 text-xl font-semibold mb-4">
                   ₹{product.price}

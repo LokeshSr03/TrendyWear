@@ -44,7 +44,7 @@ const ProductPage = () => {
               <img
                 src={`/${product.image}`}
                 alt={product.name}
-                className="rounded-lg shadow-lg w-full"
+                className="rounded-lg shadow-lg w-full h-[30rem]"
               />
             </div>
 
@@ -60,7 +60,7 @@ const ProductPage = () => {
               </p>
 
               <p className="text-2xl font-semibold text-green-600">
-                ${product?.price || "299"}
+                ₹{product?.price || "299"}
               </p>
 
               {/* Stock Status */}

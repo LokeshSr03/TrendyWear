@@ -49,7 +49,7 @@ function HomeScreen() {
                 <span className="text-teal-600 text-xl font-semibold mb-4">
                   ₹{product.price}
                 </span>
-                <Link to={`/${product._id}`}>
+                <Link to={`/product/${product._id}`}>
                   <button className="bg-teal-600 text-white font-medium px-6 py-3 rounded-full hover:bg-teal-500 transition duration-300 ease-in-out">
                     View Details
                   </button>

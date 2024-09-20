@@ -16,37 +16,45 @@ function HomeScreen() {
   }, [dispatch]); // Runs on component mount, doesn't depend on products
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">Product List</h1>
+    <div className="min-h-screen bg-gray-100 p-6 mt-16">
+      <h1 className="text-4xl font-extrabold text-center mb-8 text-teal-600">
+        Explore Our Products
+      </h1>
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-center text-xl text-gray-600">Loading...</p>
       ) : error ? (
-        <p>Error: {error.message}</p>
+        <p className="text-center text-xl text-red-600">
+          Error: {error.message}
+        </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center"
+              className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300 ease-in-out"
             >
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-48 object-cover rounded-md mb-4"
+                className="w-full h-48 object-cover rounded-t-md mb-6"
               />
-              <h2 className="text-xl font-bold mb-2">{product.name}</h2>
-              <p className="text-gray-600 text-sm mb-4">
-                {product.description}
-              </p>
-              <span className="text-indigo-600 text-lg font-semibold">
-                ₹{product.price}
-              </span>
-              <Link to={`/${product._id}`}>
-                <button className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-500 transition duration-300">
-                  Add to Cart
-                </button>
-              </Link>
+              <div className="flex flex-col items-center">
+                <h2 className="text-lg font-bold mb-2 text-gray-900">
+                  {product.name}
+                </h2>
+                <p className="text-gray-600 text-sm mb-4 text-center">
+                  {product.description}
+                </p>
+                <span className="text-teal-600 text-xl font-semibold mb-4">
+                  ₹{product.price}
+                </span>
+                <Link to={`/${product._id}`}>
+                  <button className="bg-teal-600 text-white font-medium px-6 py-3 rounded-full hover:bg-teal-500 transition duration-300 ease-in-out">
+                    View Details
+                  </button>
+                </Link>
+              </div>
             </div>
           ))}
         </div>

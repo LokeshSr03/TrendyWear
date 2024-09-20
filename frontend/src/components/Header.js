@@ -11,7 +11,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
-
   const { userInfo } = userLogin;
 
   useEffect(() => {
@@ -19,23 +18,24 @@ const Header = () => {
       navigate("/login");
     }
   }, [userInfo]);
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen); // Toggle menu state
   };
 
   return (
-    <header className="bg-gray-800 p-4 ">
+    <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50 p-4">
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
-        <Link to="/" className="text-white text-2xl font-bold">
+        <Link to="/" className="text-teal-600 text-2xl font-bold">
           TrendyWear
         </Link>
 
-        {/* Menu for Mobile */}
+        {/* Mobile Menu Toggle */}
         <div className="flex md:hidden">
           <button
             onClick={toggleMenu}
             type="button"
-            className="text-white focus:outline-none"
+            className="text-teal-600 focus:outline-none"
             aria-label="Toggle menu"
           >
             {menuOpen ? (
@@ -46,27 +46,27 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Dropdown Menu for Mobile */}
+        {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-gray-700 md:hidden">
+          <div className="absolute top-16 left-0 w-full bg-teal-50 md:hidden">
             <ul className="flex flex-col p-4 space-y-4">
               <li>
-                <Link to="/" className="text-white block">
+                <Link to="/" className="text-teal-600 block">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-white block">
+                <Link to="/about" className="text-teal-600 block">
                   About
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-white block">
+                <Link to="/services" className="text-teal-600 block">
                   Services
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-white block">
+                <Link to="/contact" className="text-teal-600 block">
                   Contact
                 </Link>
               </li>
@@ -74,111 +74,74 @@ const Header = () => {
           </div>
         )}
 
-        {/* Static Links for Larger Screens */}
-        <div className="hidden md:flex space-x-10 flex justify-center items-center">
-          <Link to="/" className="text-white">
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-8 items-center">
+          <Link to="/" className="text-gray-700 hover:text-teal-600">
             Home
           </Link>
-          <Link to="/about" className="text-white">
+          <Link to="/about" className="text-gray-700 hover:text-teal-600">
             About
           </Link>
-          <Link to="/services" className="text-white">
+          <Link to="/services" className="text-gray-700 hover:text-teal-600">
             Services
           </Link>
 
-          {/* Cart Icon Link */}
-          <Link to="/cart" className="text-white">
+          {/* Cart Icon */}
+          <Link to="/cart" className="text-gray-700 hover:text-teal-600">
             <FiShoppingCart className="h-6 w-6" />
           </Link>
 
-          {/* Dropdown Menu */}
-          {userInfo && userInfo.isAdmin ? (
+          {/* User Dropdown Menu */}
+          {userInfo ? (
             <>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                    {userInfo && userInfo.username}
+                  <MenuButton className="inline-flex justify-center rounded-md bg-teal-600 text-white px-4 py-2 text-sm font-semibold shadow hover:bg-teal-500">
+                    {userInfo.username}
                     <ChevronDownIcon
+                      className="ml-2 h-5 w-5 text-white"
                       aria-hidden="true"
-                      className="-mr-1 h-5 w-5 text-gray-400"
                     />
                   </MenuButton>
                 </div>
-
-                <MenuItems
-                  transition
-                  className="absolute right-0 z-10 mt-3 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none"
-                >
-                  <div className="py-1">
-                    <MenuItem>
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      >
-                        Profile
-                      </Link>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </Menu>
-              <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                    Manage
-                    <ChevronDownIcon
-                      aria-hidden="true"
-                      className="-mr-1 h-5 w-5 text-gray-400"
-                    />
-                  </MenuButton>
-                </div>
-
-                <MenuItems
-                  transition
-                  className="absolute right-0 z-10 mt-3 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none"
-                >
-                  <div className="py-1">
-                    <MenuItem>
-                      <Link
-                        to="/product"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      >
-                        Create Product
-                      </Link>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </Menu>
-            </>
-          ) : userInfo && !userInfo.isAdmin ? (
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                  {userInfo && userInfo.username}
-                  <ChevronDownIcon
-                    aria-hidden="true"
-                    className="-mr-1 h-5 w-5 text-gray-400"
-                  />
-                </MenuButton>
-              </div>
-
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-3 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none"
-              >
-                <div className="py-1">
+                <MenuItems className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <MenuItem>
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50"
                     >
                       Profile
                     </Link>
                   </MenuItem>
-                </div>
-              </MenuItems>
-            </Menu>
+                </MenuItems>
+              </Menu>
+
+              {userInfo.isAdmin && (
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <MenuButton className="inline-flex justify-center rounded-md bg-teal-600 text-white px-4 py-2 text-sm font-semibold shadow hover:bg-teal-500">
+                      Manage
+                      <ChevronDownIcon
+                        className="ml-2 h-5 w-5 text-white"
+                        aria-hidden="true"
+                      />
+                    </MenuButton>
+                  </div>
+                  <MenuItems className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <MenuItem>
+                      <Link
+                        to="/product"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50"
+                      >
+                        Create Product
+                      </Link>
+                    </MenuItem>
+                  </MenuItems>
+                </Menu>
+              )}
+            </>
           ) : (
-            <Link to="/login" className="text-white">
+            <Link to="/login" className="text-gray-700 hover:text-teal-600">
               Login
             </Link>
           )}

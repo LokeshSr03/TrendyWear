@@ -31,11 +31,10 @@ function HomeScreen() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 mt-16">
-      <h1 className="text-4xl font-extrabold text-center mb-8 text-teal-600">
-        Explore Our Products
-      </h1>
-
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-extrabold text-center text-teal-600">
+          Explore Our Products
+        </h1>
         <button
           onClick={() => setShowFilter(!showFilter)}
           className="bg-teal-600 text-white px-4 py-2 rounded"
@@ -45,8 +44,8 @@ function HomeScreen() {
       </div>
 
       {showFilter && (
-        <div className="mb-8 flex items-center justify-center">
-          <div className="flex items-center mr-4">
+        <div className="mb-8 flex flex-col items-center md:flex-row md:justify-center">
+          <div className="flex items-center mb-4 md:mr-4">
             <label className="mr-2">Min Price:</label>
             <input
               type="number"
@@ -55,7 +54,7 @@ function HomeScreen() {
               className="border rounded p-2 w-20"
             />
           </div>
-          <div className="flex items-center mx-4">
+          <div className="flex items-center mb-4 md:mr-4">
             <label className="mr-2">Max Price:</label>
             <input
               type="number"
@@ -64,7 +63,7 @@ function HomeScreen() {
               className="border rounded p-2 w-20"
             />
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center md:flex-row">
             <span>
               Price Range: ₹{minPrice} - ₹{maxPrice}
             </span>
@@ -74,7 +73,7 @@ function HomeScreen() {
               max={1000}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="w-64"
+              className="mx-2 w-full md:w-64"
             />
             <input
               type="range"
@@ -82,7 +81,7 @@ function HomeScreen() {
               max={1000}
               value={minPrice}
               onChange={(e) => setMinPrice(Number(e.target.value))}
-              className="w-64"
+              className="mx-2 w-full md:w-64"
             />
           </div>
         </div>

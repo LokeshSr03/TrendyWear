@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSingleProduct } from "../actions/productActions";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const ProductPage = () => {
   const productSingle = useSelector((state) => state.productSingle);
@@ -75,16 +75,18 @@ const ProductPage = () => {
               </p>
 
               <div className="flex space-x-4">
-                <button
-                  className={`${
-                    product?.stock > 0
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-400 text-white cursor-not-allowed"
-                  } px-4 py-2 rounded-md hover:bg-blue-500 transition`}
-                  disabled={product?.stock === 0}
-                >
-                  Add to Cart
-                </button>
+                <Link to={`/products/${id}/cart`}>
+                  <button
+                    className={`${
+                      product?.stock > 0
+                        ? "bg-teal-600 text-white"
+                        : "bg-gray-400 text-white cursor-not-allowed"
+                    } px-4 py-2 rounded-md hover:bg-teal-500 transition`}
+                    disabled={product?.stock === 0}
+                  >
+                    Add to Cart
+                  </button>
+                </Link>
                 <button className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 transition">
                   Buy Now
                 </button>

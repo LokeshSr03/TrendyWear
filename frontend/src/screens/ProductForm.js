@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../actions/productActions";
+import { useNavigate } from "react-router-dom";
 
 const ProductForm = () => {
   const [name, setName] = useState("");
@@ -10,11 +11,13 @@ const ProductForm = () => {
   const [image, setImage] = useState(null); // File object
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Dispatch createProduct action with form data
     dispatch(createProduct(name, description, price, stock, image));
+    navigate("/");
   };
 
   const handleImageChange = (e) => {

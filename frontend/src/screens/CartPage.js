@@ -1,22 +1,9 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const CartPage = () => {
-  const cartItems = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 29.99,
-      quantity: 2,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 19.99,
-      quantity: 1,
-      image: "https://via.placeholder.com/150",
-    },
-  ];
+  const productSingle = useSelector((state) => state.productSingle);
+  const { loading, error, product } = productSingle;
 
   const handleRemove = (id) => {
     // Logic to remove item from cart

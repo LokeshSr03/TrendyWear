@@ -5,6 +5,9 @@ import {
   PRODUCT_GET_FAIL,
   PRODUCT_GET_REQUEST,
   PRODUCT_GET_SUCCESS,
+  PRODUCT_SINGLE_REQUEST,
+  PRODUCT_SINGLE_FAIL,
+  PRODUCT_SINGLE_SUCCESS,
 } from "../constants/productConstants";
 import axios from "axios";
 
@@ -66,4 +69,21 @@ const getProducts = () => async (dispatch) => {
   }
 };
 
-export { createProduct, getProducts };
+const getSingleProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_SINGLE_REQUEST });
+
+    const { data } = await axios.get(`/api/products/${id}`);
+
+    dispatch({ type: PRODUCT_SINGLE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_SINGLE_FAIL,
+      payload:
+        error.respons && error.respons.data.message
+          ? error.respons.data.message
+          : error.message,
+    });
+  }
+};
+export { createProduct, getProducts, getSingleProduct };

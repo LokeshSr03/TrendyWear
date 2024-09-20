@@ -5,6 +5,9 @@ import {
   PRODUCT_GET_REQUEST,
   PRODUCT_GET_SUCCESS,
   PRODUCT_GET_FAIL,
+  PRODUCT_SINGLE_REQUEST,
+  PRODUCT_SINGLE_SUCCESS,
+  PRODUCT_SINGLE_FAIL,
 } from "../constants/productConstants";
 
 const productCreateReducer = (state = {}, action) => {
@@ -38,4 +41,18 @@ const productAllReducer = (state = { products: [] }, action) => {
   }
 };
 
-export { productCreateReducer, productAllReducer };
+const productSingleReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case PRODUCT_SINGLE_REQUEST:
+      return { loading: true };
+    case PRODUCT_SINGLE_SUCCESS:
+      return { loading: false, product: action.payload };
+
+    case PRODUCT_SINGLE_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+export { productCreateReducer, productAllReducer, productSingleReducer };

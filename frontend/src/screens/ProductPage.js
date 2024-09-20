@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getSingleProduct } from "../actions/productActions";
+import { useParams } from "react-router-dom";
 
 const ProductPage = () => {
+  const productSingle = useSelector((state) => state.productSingle);
+  const { loading, error, product } = productSingle;
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (product && !product.name) {
+      dispatch(getSingleProduct(id));
+    }
+  }, [dispatch, product]);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">

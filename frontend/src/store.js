@@ -10,6 +10,7 @@ import {
 import {
   productAllReducer,
   productCreateReducer,
+  productSingleReducer,
 } from "./reducers/productReducer";
 
 const reducers = combineReducers({
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   userUpdate: userUpdateReducer,
   productCreate: productCreateReducer,
   productAll: productAllReducer,
+  productSingle: productSingleReducer,
 });
 
 const userFromLocalStorage = localStorage.getItem("userInfo")

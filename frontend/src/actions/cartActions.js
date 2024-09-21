@@ -8,13 +8,13 @@ import {
 } from "../constants/cartConstants";
 import axios from "axios";
 
-const addCart = (id) => async (dispatch, getstate) => {
+const addCart = (id, quantity) => async (dispatch, getstate) => {
   try {
     dispatch({ type: CART_ADD_REQUEST });
 
     const { data } = await axios.get(`/api/products/${id}`);
 
-    dispatch({ type: CART_ADD_SUCCESS, payload: data });
+    dispatch({ type: CART_ADD_SUCCESS, payload: { ...data, quantity } });
 
     localStorage.setItem(
       "cartItems",

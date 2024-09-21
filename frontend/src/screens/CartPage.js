@@ -7,6 +7,8 @@ import { getUserProfile } from "../actions/userActions";
 const CartPage = () => {
   const { id } = useParams();
   const [address, setAddress] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -16,7 +18,7 @@ const CartPage = () => {
   const { loading, error, user } = userProfile;
 
   useEffect(() => {
-    dispatch(addCart(id));
+    dispatch(addCart(id, quantity));
     if (user) {
       setAddress(user.address);
     } else {

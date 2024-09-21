@@ -12,7 +12,7 @@ import {
 } from "../constants/orderConstants";
 
 const createOrder =
-  (total_amount, status, items) => async (dispatch, getstate) => {
+  (items, total_amount, status) => async (dispatch, getstate) => {
     try {
       dispatch({ type: ORDER_CREATE_REQUEST });
 
@@ -21,7 +21,7 @@ const createOrder =
       } = getstate();
 
       const config = {
-        header: {
+        headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
@@ -48,11 +48,14 @@ const createOrder =
     }
   };
 
-const getOrders = () => async (dispatch) => {
+const getOrders = () => async (dispatch, getstate) => {
   try {
     dispatch({ type: ORDER_GET_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getstate();
     const config = {
-      header: {
+      headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -70,15 +73,18 @@ const getOrders = () => async (dispatch) => {
   }
 };
 
-const getOrderById = () => async (dispatch) => {
+const getOrderById = () => async (dispatch, getstate) => {
   try {
     dispatch({ type: ORDER_SINGLE_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getstate();
     const config = {
-      header: {
+      headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = axios.get(`/api/orders/${id}`, config);
+    const { data } = axios.get(`/api/orders`, config);
 
     dispatch({ type: ORDER_SINGLE_SUCCESS, payload: data });
   } catch (error) {

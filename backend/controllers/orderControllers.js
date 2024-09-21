@@ -2,7 +2,7 @@ import Order from "../models/orderModel.js";
 import asyncHandler from "express-async-handler";
 
 const createOrder = asyncHandler(async (req, res) => {
-  const { total_amount, status, items } = req.body;
+  const { items, total_amount, status } = req.body;
 
   // Check if items exist and are not an empty array
   if (!items || items.length === 0) {

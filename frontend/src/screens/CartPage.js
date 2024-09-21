@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { addCart, removeCart } from "../actions/cartActions";
 import { getUserProfile } from "../actions/userActions";
+import { createOrder } from "../actions/orderActions";
 
 const CartPage = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const CartPage = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-
+  console.log(cartItems);
   const userProfile = useSelector((state) => state.userProfile);
   const { user } = userProfile;
 
@@ -42,8 +43,12 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    console.log("Checkout clicked");
-    navigate(`/login?redirect=/cart/checkout`);
+    if (user) {
+      dispatch(createOrder(cartItems, totalPrice));
+      navigate(`/cart/checkout`);
+    } else {
+      navigate(`/login?redirect=/cart/checkout`);
+    }
   };
 
   return (

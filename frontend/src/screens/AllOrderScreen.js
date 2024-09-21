@@ -1,93 +1,110 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders } from "../actions/orderActions"; // Assuming you have a Redux action to fetch orders
+import { getOrders } from "../actions/orderActions"; // Redux action to fetch orders
+import {
+  MdPending,
+  MdCheckCircle,
+  MdLocalShipping,
+  MdDone,
+  MdError,
+} from "react-icons/md"; // Icons for status
 
 function AllOrderScreen() {
   const dispatch = useDispatch();
 
-  const orderGet = useSelector((state) => state.orderGet); // Assuming you have an orderList in Redux state
+  const orderGet = useSelector((state) => state.orderGet);
   const { orders = [], loading, error } = orderGet;
   console.log(orders);
 
   useEffect(() => {
-    dispatch(getOrders()); // Fetch orders when component loads
+    dispatch(getOrders());
   }, [dispatch]);
 
+  const statusIcons = {
+    pending: <MdPending className="text-yellow-500 w-5 h-5 mr-1" />,
+    paid: <MdCheckCircle className="text-green-500 w-5 h-5 mr-1" />,
+    shipped: <MdLocalShipping className="text-blue-500 w-5 h-5 mr-1" />,
+    delivered: <MdDone className="text-purple-500 w-5 h-5 mr-1" />,
+    cancelled: <MdError className="text-red-500 w-5 h-5 mr-1" />,
+  };
+
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+    <div className="container mx-auto p-8">
+      <h1 className="text-5xl font-extrabold text-gray-900 mb-10 text-center tracking-wide">
         All Orders
       </h1>
 
       {loading ? (
         <div className="flex justify-center items-center">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-gray-500"></div>
-          <span className="ml-2 text-gray-600">Loading...</span>
+          <div className="spinner-border animate-spin inline-block w-16 h-16 border-4 rounded-full text-gray-500"></div>
+          <span className="ml-4 text-xl text-gray-700">Loading...</span>
         </div>
       ) : error ? (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p>Error: {error}</p>
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg max-w-md mx-auto">
+          <p className="font-medium text-lg">Error: {error}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {orders.map((order) => (
             <div
               key={order._id}
-              className="bg-white shadow-md rounded-lg p-6 border-t-4 border-blue-500 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white shadow-xl rounded-lg p-6 border-t-4 border-gradient-to-r from-blue-400 to-purple-500 hover:shadow-2xl transition-shadow duration-300"
             >
-              <h2 className="text-lg font-semibold mb-2">
-                Order ID: <span className="text-gray-500">{order._id}</span>
+              <h2 className="text-2xl font-semibold mb-3 text-gray-800">
+                Order ID: <span className="text-gray-600">{order._id}</span>
               </h2>
 
-              <p className="mb-2">
+              <p className="mb-4 text-gray-700">
                 Status:{" "}
                 <span
-                  className={`${
+                  className={`inline-flex items-center ${
                     order.status === "pending"
-                      ? "bg-yellow-200"
+                      ? "bg-yellow-100 text-yellow-700"
                       : order.status === "paid"
-                      ? "bg-green-200"
+                      ? "bg-green-100 text-green-700"
                       : order.status === "shipped"
-                      ? "bg-blue-200"
+                      ? "bg-blue-100 text-blue-700"
                       : order.status === "delivered"
-                      ? "bg-purple-200"
-                      : "bg-red-200"
-                  } px-2 py-1 rounded-full text-sm font-semibold`}
+                      ? "bg-purple-100 text-purple-700"
+                      : "bg-red-100 text-red-700"
+                  } px-3 py-1 rounded-full text-sm font-semibold`}
                 >
-                  {order.status}
+                  {statusIcons[order.status]} {order.status}
                 </span>
               </p>
 
               <div className="border-t border-gray-200 py-4">
-                <h3 className="font-semibold text-gray-800">Items</h3>
-                {order.items.map((item) => (
-                  <div
-                    key={item.product_id}
-                    className="flex items-center space-x-4 border-b pb-2 mb-2"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-16 h-16 rounded-md object-cover"
-                    />
-                    <div>
-                      <p className="text-gray-800">{item.name}</p>
-                      <p className="text-sm text-gray-500">
-                        Quantity: {item.quantity}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Price: ${item.price}
-                      </p>
+                <h3 className="font-semibold text-gray-900 mb-4">Items</h3>
+                <div className="space-y-3">
+                  {order.items.map((item) => (
+                    <div
+                      key={item.product_id}
+                      className="flex items-center space-x-4 py-2 rounded-lg bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-300"
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-16 h-16 rounded-lg object-cover"
+                      />
+                      <div className="flex-grow">
+                        <p className="text-gray-900 font-medium">{item.name}</p>
+                        <p className="text-sm text-gray-500">
+                          Quantity: {item.quantity}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          Price: ₹{item.price}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold text-gray-800">
+              <div className="mt-6 text-right">
+                <h3 className="text-2xl font-semibold text-gray-800">
                   Total:{" "}
-                  <span className="text-xl text-green-500">
-                    ${order.total_amount.toFixed(2)}
+                  <span className="text-3xl text-green-600 font-extrabold">
+                    ₹{order.total_amount.toFixed(2)}
                   </span>
                 </h3>
               </div>

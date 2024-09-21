@@ -28,7 +28,7 @@ function OrderScreen() {
           <p className="text-gray-700 mb-6">
             Status:{" "}
             <span
-              className={`₹{
+              className={`${
                 order.status === "pending"
                   ? "bg-yellow-200"
                   : order.status === "paid"

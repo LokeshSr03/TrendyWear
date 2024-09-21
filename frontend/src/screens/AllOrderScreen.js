@@ -8,6 +8,7 @@ import {
   MdDone,
   MdError,
 } from "react-icons/md"; // Icons for status
+import { Link } from "react-router-dom";
 
 function AllOrderScreen() {
   const dispatch = useDispatch();
@@ -29,8 +30,8 @@ function AllOrderScreen() {
   };
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-5xl font-extrabold text-gray-900 mb-10 text-center tracking-wide">
+    <div className="container mx-auto p-8 mt-16">
+      <h1 className="text-5xl font-extrabold text-teal-600 mb-10 text-center tracking-wide">
         All Orders
       </h1>
 
@@ -46,7 +47,8 @@ function AllOrderScreen() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {orders.map((order) => (
-            <div
+            <Link
+              to={`/orders/${order._id}`}
               key={order._id}
               className="bg-white shadow-xl rounded-lg p-6 border-t-4 border-gradient-to-r from-blue-400 to-purple-500 hover:shadow-2xl transition-shadow duration-300"
             >
@@ -54,8 +56,8 @@ function AllOrderScreen() {
                 Order ID: <span className="text-gray-600">{order._id}</span>
               </h2>
 
-              <p className="mb-4 text-gray-700">
-                Status:{" "}
+              <p className="mb-4 text-gray-700 flex  items-center">
+                Status:{"  "}
                 <span
                   className={`inline-flex items-center ${
                     order.status === "pending"
@@ -103,12 +105,12 @@ function AllOrderScreen() {
               <div className="mt-6 text-right">
                 <h3 className="text-2xl font-semibold text-gray-800">
                   Total:{" "}
-                  <span className="text-3xl text-green-600 font-extrabold">
+                  <span className="text-3xl text-teal-600 font-extrabold">
                     ₹{order.total_amount.toFixed(2)}
                   </span>
                 </h3>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

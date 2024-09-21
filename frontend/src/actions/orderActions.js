@@ -74,7 +74,7 @@ const getOrders = () => async (dispatch, getstate) => {
   }
 };
 
-const getOrderById = () => async (dispatch, getstate) => {
+const getOrderById = (id) => async (dispatch, getstate) => {
   try {
     dispatch({ type: ORDER_SINGLE_REQUEST });
     const {
@@ -85,7 +85,7 @@ const getOrderById = () => async (dispatch, getstate) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = axios.get(`/api/orders`, config);
+    const { data } = await axios.get(`/api/orders/${id}`, config);
 
     dispatch({ type: ORDER_SINGLE_SUCCESS, payload: data });
   } catch (error) {

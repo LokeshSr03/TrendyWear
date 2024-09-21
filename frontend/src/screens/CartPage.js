@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addCart, removeCart, removeCartItem } from "../actions/cartActions";
-
+import { addCart, removeCart } from "../actions/cartActions";
+import { getUserProfile } from "../actions/userActions";
 const CartPage = () => {
   const { id } = useParams();
-
+  const [address, setAddress] = useState("");
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const userProfile = useSelector((state) => state.userProfile);
+  const { loading, error, user } = userProfile;
   useEffect(() => {
     dispatch(addCart(id));
+    if (user) {
+      setAddress(user.address);
+    } else {
+      dispatch(getUserProfile());
+    }
   }, [dispatch, id]);
 
   const handleRemove = (id) => {
@@ -45,7 +52,7 @@ const CartPage = () => {
                 >
                   <div className="flex items-center">
                     <img
-                      src={item.image}
+                      src={`/${item.image}`}
                       alt={item.name}
                       className="w-20 h-20 rounded mr-4"
                     />
@@ -53,7 +60,7 @@ const CartPage = () => {
                       <h2 className="font-semibold">{item.name}</h2>
                       <p className="text-gray-600">{item.description}</p>
                       <p className="text-gray-600">
-                        Price: ${item.price.toFixed(2)}
+                        Price: ₹{item.price.toFixed(2)}
                       </p>
                       <p className="text-gray-600">Stock: {item.stock}</p>
                       <select
@@ -101,32 +108,14 @@ const CartPage = () => {
               <label htmlFor="address">Address:</label>
               <input
                 type="text"
-                id="address"
-                name="address"
-                className="border p-1"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Enter your address"
+                className="mt-1 block w-full px-4 py-2 border rounded-md focus:ring focus:ring-indigo-300 focus:border-indigo-500"
                 // Add onChange and value handlers as needed
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="city">City:</label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                className="border p-1"
-                // Add onChange and value handlers as needed
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="zipcode">Zip Code:</label>
-              <input
-                type="text"
-                id="zipcode"
-                name="zipcode"
-                className="border p-1"
-                // Add onChange and value handlers as needed
-              />
-            </div>
+
             {/* Add more fields as needed (e.g., state, country) */}
           </form>
         </div>

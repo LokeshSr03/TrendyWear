@@ -12,15 +12,14 @@ const addCart = (id) => async (dispatch, getstate) => {
   try {
     dispatch({ type: CART_ADD_REQUEST });
 
-    const {
-      cart: { cartItems },
-    } = getstate();
-
     const { data } = await axios.get(`/api/products/${id}`);
 
-    dispatch({ type: CART_ADD_SUCCESS, payload: { ...data } });
+    dispatch({ type: CART_ADD_SUCCESS, payload: data });
 
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(getstate().cart.cartItems)
+    );
   } catch (error) {
     dispatch({
       type: CART_ADD_FAIL,

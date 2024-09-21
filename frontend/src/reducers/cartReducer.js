@@ -7,13 +7,13 @@ const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case CART_ADD_SUCCESS:
       const item = action.payload;
-      const existItem = state.cartItems.find((i) => i.id === item.id);
+      const existItem = state.cartItems.find((i) => i._id === item._id);
 
       if (existItem) {
         // If the item already exists, replace it
         return {
           cartItems: state.cartItems.map((i) =>
-            i.id === existItem.id ? item : i
+            i._id === existItem._id ? item : i
           ),
         };
       } else {
@@ -25,7 +25,7 @@ const cartReducer = (state = { cartItems: [] }, action) => {
 
     case CART_REMOVE_SUCCESS:
       return {
-        cartItems: state.cartItems.filter((i) => i.id !== action.payload),
+        cartItems: state.cartItems.filter((i) => i._id !== action.payload),
       };
 
     default:

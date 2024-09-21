@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { addCart, removeCart } from "../actions/cartActions";
 import { getUserProfile } from "../actions/userActions";
 import { createOrder } from "../actions/orderActions";
@@ -15,7 +15,6 @@ const CartPage = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
   const userProfile = useSelector((state) => state.userProfile);
   const { user } = userProfile;
 
@@ -44,7 +43,16 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     if (user) {
-      dispatch(createOrder(cartItems, totalPrice));
+      const items = cartItems.map((item) => ({
+        product_id: item._id, // or item.product_id if it's named differently in the cart
+        name: item.name,
+        description: item.description,
+        image: item.image,
+        quantity: item.quantity,
+        price: item.price,
+      }));
+
+      dispatch(createOrder(items, totalPrice));
       navigate(`/cart/checkout`);
     } else {
       navigate(`/login?redirect=/cart/checkout`);

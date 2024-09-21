@@ -23,6 +23,18 @@ const orderSchema = mongoose.Schema(
           ref: "Product",
           required: true,
         },
+        name: {
+          type: String,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+        image: {
+          type: String, // Store the image path
+          required: true,
+        },
         quantity: {
           type: Number,
           required: true,

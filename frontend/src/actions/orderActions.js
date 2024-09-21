@@ -23,15 +23,16 @@ const createOrder =
       const config = {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
+          "Content-Type": "application/json",
         },
       };
 
       const { data } = await axios.post(
         `/api/orders`,
         {
+          items,
           total_amount,
           status,
-          items,
         },
         config
       );

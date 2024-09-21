@@ -117,6 +117,14 @@ const Header = () => {
                   </MenuItem>
                   <MenuItem>
                     <Link
+                      to="/orders"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50"
+                    >
+                      Orders
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
                       to="/login"
                       onClick={() => dispatch(logout())}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50"

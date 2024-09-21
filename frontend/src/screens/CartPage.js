@@ -54,16 +54,16 @@ const CartPage = () => {
       }));
 
       dispatch(createOrder(items, totalPrice));
-      navigate(`/cart/checkout`);
+      navigate(`/cart/order`);
       dispatch({ type: CART_RESET });
     } else {
-      navigate(`/login?redirect=/cart/checkout`);
+      navigate(`/login?redirect=/cart/order`);
     }
   };
 
   return (
     <div className="container mx-auto p-5 lg:p-10 min-h-screen mt-12">
-      <h1 className="text-3xl font-bold mb-5 text-gradient bg-gradient-to-r text-teal-700 bg-clip-text text-transparent">
+      <h1 className="text-3xl font-bold mb-5 text-gradient bg-gradient-to-r text-teal-600 bg-clip-text ">
         Your Cart
       </h1>
       <div className="bg-white shadow-xl rounded-lg p-6 lg:p-10 transition-transform transform">

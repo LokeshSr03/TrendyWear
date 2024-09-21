@@ -60,7 +60,7 @@ const getOrders = () => async (dispatch, getstate) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = axios.get("/api/orders", config);
+    const { data } = await axios.get("/api/orders", config);
 
     dispatch({ type: ORDER_GET_SUCCESS, payload: data });
   } catch (error) {

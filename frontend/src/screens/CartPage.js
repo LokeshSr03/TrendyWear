@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { addCart, removeCart } from "../actions/cartActions";
 import { getUserProfile } from "../actions/userActions";
 import { createOrder } from "../actions/orderActions";
+import { CART_RESET } from "../constants/cartConstants";
 
 const CartPage = () => {
   const { id } = useParams();
@@ -54,6 +55,7 @@ const CartPage = () => {
 
       dispatch(createOrder(items, totalPrice));
       navigate(`/cart/checkout`);
+      dispatch({ type: CART_RESET });
     } else {
       navigate(`/login?redirect=/cart/checkout`);
     }

@@ -15,6 +15,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
+import { CART_RESET } from "../constants/cartConstants";
 
 const registerUser = (username, email, password) => async (disptch) => {
   try {
@@ -147,4 +148,12 @@ const updateUser =
       });
     }
   };
-export { registerUser, loginUser, getUserProfile, updateUser };
+
+const logout = () => async (dispatch) => {
+  dispatch({ type: USER_LOGIN_RESET });
+  dispatch({ type: USER_PROFILE_RESET });
+  dispatch({ type: CART_RESET });
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("cartItems");
+};
+export { registerUser, loginUser, getUserProfile, updateUser, logout };

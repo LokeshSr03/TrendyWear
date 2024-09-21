@@ -1,6 +1,7 @@
 import {
   CART_ADD_SUCCESS,
   CART_REMOVE_SUCCESS,
+  CART_RESET,
 } from "../constants/cartConstants";
 
 const cartReducer = (state = { cartItems: [] }, action) => {
@@ -28,6 +29,8 @@ const cartReducer = (state = { cartItems: [] }, action) => {
         cartItems: state.cartItems.filter((i) => i._id !== action.payload),
       };
 
+    case CART_RESET:
+      return { cartItems: [] };
     default:
       return state; // Return current state when no action matches
   }

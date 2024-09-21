@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { addCart, removeCart } from "../actions/cartActions";
 import { getUserProfile } from "../actions/userActions";
 
@@ -107,12 +107,14 @@ const CartPage = () => {
               <h2 className="text-2xl font-bold text-gray-800">
                 Total: ₹{totalPrice.toFixed(2)}
               </h2>
-              <button
-                onClick={handleCheckout}
-                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white px-6 py-3 mt-5 md:mt-0 rounded-lg shadow hover:from-purple-500 hover:to-red-600 transition-all"
-              >
-                Proceed to Checkout
-              </button>
+              <Link to="/cart/checkout">
+                <button
+                  onClick={handleCheckout}
+                  className="bg-gradient-to-r from-purple-400  to-teal-500 text-white px-6 py-3 mt-5 md:mt-0 rounded-lg shadow hover:from-teal-500 hover:to-purple-400 transition-all"
+                >
+                  Proceed to Checkout
+                </button>
+              </Link>
             </div>
           </>
         )}

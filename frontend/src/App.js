@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import ProductForm from "./screens/ProductForm";
 import ProductPage from "./screens/ProductPage";
 import CartPage from "./screens/CartPage";
+import CheckoutPage from "./screens/CheckoutPage";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/products/:id/cart" element={<CartPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/cart/checkout" element={<CheckoutPage />} />
+
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />

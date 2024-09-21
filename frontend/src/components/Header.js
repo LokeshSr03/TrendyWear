@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { MenuIcon, XIcon, ChevronDownIcon } from "@heroicons/react/outline"; // Menu and Close icons from HeroIcons
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FiShoppingCart } from "react-icons/fi"; // Import the cart icon
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../actions/userActions";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -111,6 +113,15 @@ const Header = () => {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50"
                     >
                       Profile
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      to="/login"
+                      onClick={() => dispatch(logout())}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50"
+                    >
+                      Logout
                     </Link>
                   </MenuItem>
                 </MenuItems>

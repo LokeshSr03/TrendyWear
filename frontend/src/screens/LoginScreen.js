@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../actions/userActions";
 
@@ -11,11 +11,13 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { loading, userInfo } = userLogin;
 
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/";
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      navigate(redirect);
     }
   }, [userInfo, dispatch, navigate]);
   const handleSubmit = (e) => {

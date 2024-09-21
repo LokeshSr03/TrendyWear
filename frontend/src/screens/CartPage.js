@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { addCart, removeCart } from "../actions/cartActions";
 import { getUserProfile } from "../actions/userActions";
 
 const CartPage = () => {
   const { id } = useParams();
   const [address, setAddress] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   const userProfile = useSelector((state) => state.userProfile);
-  const { loading, error, user } = userProfile;
+  const { user } = userProfile;
 
   useEffect(() => {
     dispatch(addCart(id, quantity));
@@ -42,6 +43,7 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     console.log("Checkout clicked");
+    navigate(`/login?redirect=/cart/checkout`);
   };
 
   return (
@@ -107,14 +109,13 @@ const CartPage = () => {
               <h2 className="text-2xl font-bold text-gray-800">
                 Total: ₹{totalPrice.toFixed(2)}
               </h2>
-              <Link to="/cart/checkout">
-                <button
-                  onClick={handleCheckout}
-                  className="bg-gradient-to-r from-purple-400  to-teal-500 text-white px-6 py-3 mt-5 md:mt-0 rounded-lg shadow hover:from-teal-500 hover:to-purple-400 transition-all"
-                >
-                  Proceed to Checkout
-                </button>
-              </Link>
+
+              <button
+                onClick={handleCheckout}
+                className="bg-gradient-to-r from-purple-400  to-teal-500 text-white px-6 py-3 mt-5 md:mt-0 rounded-lg shadow hover:from-teal-500 hover:to-purple-400 transition-all"
+              >
+                Proceed to Checkout
+              </button>
             </div>
           </>
         )}

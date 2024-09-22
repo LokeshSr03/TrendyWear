@@ -8,6 +8,12 @@ import {
   PRODUCT_SINGLE_REQUEST,
   PRODUCT_SINGLE_SUCCESS,
   PRODUCT_SINGLE_FAIL,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_REQUEST,
 } from "../constants/productConstants";
 
 const productCreateReducer = (state = {}, action) => {
@@ -55,4 +61,39 @@ const productSingleReducer = (state = { product: {} }, action) => {
       return state;
   }
 };
-export { productCreateReducer, productAllReducer, productSingleReducer };
+
+const productUpdateReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case PRODUCT_UPDATE_REQUEST:
+      return { loading: true };
+    case PRODUCT_UPDATE_SUCCESS:
+      return { loading: false, product: action.payload };
+
+    case PRODUCT_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+const productDeleteReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case PRODUCT_DELETE_REQUEST:
+      return { loading: true };
+    case PRODUCT_DELETE_SUCCESS:
+      return { loading: false, success: true };
+
+    case PRODUCT_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+export {
+  productCreateReducer,
+  productAllReducer,
+  productSingleReducer,
+  productDeleteReducer,
+  productUpdateReducer,
+};

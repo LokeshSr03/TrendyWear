@@ -8,6 +8,12 @@ import {
   PRODUCT_SINGLE_REQUEST,
   PRODUCT_SINGLE_FAIL,
   PRODUCT_SINGLE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_REQUEST,
 } from "../constants/productConstants";
 import axios from "axios";
 
@@ -86,4 +92,45 @@ const getSingleProduct = (id) => async (dispatch) => {
     });
   }
 };
-export { createProduct, getProducts, getSingleProduct };
+
+const deleteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_DELETE_REQUEST });
+
+    const { data } = await axios.delete(`/api/products/${id}`);
+
+    dispatch({ type: PRODUCT_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
+      payload:
+        error.respons && error.respons.data.message
+          ? error.respons.data.message
+          : error.message,
+    });
+  }
+};
+const updateProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_UPDATE_REQUEST });
+
+    const { data } = await axios.put(`/api/products/${id}`);
+
+    dispatch({ type: PRODUCT_UPDATE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_UPDATE_FAIL,
+      payload:
+        error.respons && error.respons.data.message
+          ? error.respons.data.message
+          : error.message,
+    });
+  }
+};
+export {
+  createProduct,
+  getProducts,
+  getSingleProduct,
+  deleteProduct,
+  updateProduct,
+};

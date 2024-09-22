@@ -110,23 +110,36 @@ const deleteProduct = (id) => async (dispatch) => {
     });
   }
 };
-const updateProduct = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_UPDATE_REQUEST });
+const updateProduct =
+  (id, name, description, price, stock) => async (dispatch, getstate) => {
+    try {
+      dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
-    const { data } = await axios.put(`/api/products/${id}`);
+      const {
+        userLogin: { userInfo },
+      } = getstate();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/products/${id}`,
+        { name, description, price, stock },
+        config
+      );
 
-    dispatch({ type: PRODUCT_UPDATE_SUCCESS });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_UPDATE_FAIL,
-      payload:
-        error.respons && error.respons.data.message
-          ? error.respons.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({ type: PRODUCT_UPDATE_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_UPDATE_FAIL,
+        payload:
+          error.respons && error.respons.data.message
+            ? error.respons.data.message
+            : error.message,
+      });
+    }
+  };
 export {
   createProduct,
   getProducts,

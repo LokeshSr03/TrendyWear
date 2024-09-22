@@ -14,6 +14,7 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_RESET,
 } from "../constants/productConstants";
 
 const productCreateReducer = (state = {}, action) => {
@@ -72,6 +73,8 @@ const productUpdateReducer = (state = { product: {} }, action) => {
     case PRODUCT_UPDATE_FAIL:
       return { loading: false, error: action.payload };
 
+    case PRODUCT_UPDATE_RESET:
+      return { product: {} };
     default:
       return state;
   }

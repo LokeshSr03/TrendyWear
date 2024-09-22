@@ -8,6 +8,9 @@ function HomeScreen() {
   const productAll = useSelector((state) => state.productAll);
   const { loading, error, products = [] } = productAll;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [showFilter, setShowFilter] = useState(false);
@@ -28,6 +31,11 @@ function HomeScreen() {
   const filteredProducts = products.filter(
     (product) => product.price >= minPrice && product.price <= maxPrice
   );
+
+  const handleDelete = (productId) => {
+    // Add delete logic here, possibly dispatching an action
+    console.log(`Delete product with ID: ${productId}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 mt-16">
@@ -116,11 +124,30 @@ function HomeScreen() {
                   <span className="text-teal-600 text-xl font-semibold mb-4">
                     ₹{product.price}
                   </span>
-                  <Link to={`/product/${product._id}`}>
-                    <button className="bg-teal-600 text-white font-medium px-6 py-3 rounded-full hover:bg-teal-500 transition duration-300 ease-in-out">
-                      View Details
-                    </button>
-                  </Link>
+
+                  {userInfo && userInfo.isAdmin ? (
+                    <div className=" flex space-x-2">
+                      <Link to={`/admin/product/${product._id}/edit`}>
+                        <button className="bg-teal-600 text-white font-medium px-4 py-2 rounded hover:bg-teal-500 transition duration-300 ease-in-out">
+                          Update
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(product._id)}
+                        className="bg-red-600 text-white font-medium px-4 py-2 rounded hover:bg-red-500 transition duration-300 ease-in-out"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ) : (
+                    <Link to={`/product/${product._id}`}>
+                      <button className="bg-teal-600 text-white font-medium px-6 py-3 rounded-full hover:bg-teal-500 transition duration-300 ease-in-out">
+                        View Details
+                      </button>
+                    </Link>
+                  )}
+
+                  {/* Conditionally show Update and Delete buttons if user is admin */}
                 </div>
               </div>
             ))

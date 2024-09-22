@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../actions/productActions";
+import { deleteProduct, getProducts } from "../actions/productActions";
 import { Link } from "react-router-dom";
 
 function HomeScreen() {
@@ -32,9 +32,9 @@ function HomeScreen() {
     (product) => product.price >= minPrice && product.price <= maxPrice
   );
 
-  const handleDelete = (productId) => {
-    // Add delete logic here, possibly dispatching an action
-    console.log(`Delete product with ID: ${productId}`);
+  const handleDelete = async (productId) => {
+    await dispatch(deleteProduct(productId));
+    dispatch(getProducts());
   };
 
   return (

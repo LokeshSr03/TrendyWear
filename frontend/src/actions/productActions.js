@@ -93,11 +93,18 @@ const getSingleProduct = (id) => async (dispatch) => {
   }
 };
 
-const deleteProduct = (id) => async (dispatch) => {
+const deleteProduct = (id) => async (dispatch, getstate) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
-
-    const { data } = await axios.delete(`/api/products/${id}`);
+    const {
+      userLogin: { userInfo },
+    } = getstate();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.delete(`/api/products/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {

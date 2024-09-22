@@ -12,6 +12,7 @@ import OrderScreen from "./screens/OrderScreen";
 import AllOrderScreen from "./screens/AllOrderScreen";
 import SingleOrderScreen from "./screens/SingleOrderScreen";
 import ProductUpdateScreen from "./screens/ProductUpdateScreen";
+import SearchScreen from "./screens/SearchScreen";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           path="/admin/product/:id/edit"
           element={<ProductUpdateScreen />}
         />
-
+        <Route path="/search" element={<SearchScreen />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/cart/checkout" element={<CheckoutPage />} />
         <Route path="/cart/order" element={<OrderScreen />} />

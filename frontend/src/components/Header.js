@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MenuIcon, XIcon, ChevronDownIcon } from "@heroicons/react/outline"; // Menu and Close icons from HeroIcons
+import { MenuIcon, XIcon, ChevronDownIcon } from "@heroicons/react/outline";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { FiShoppingCart } from "react-icons/fi"; // Import the cart icon
+import { FiShoppingCart } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/userActions";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,7 +23,18 @@ const Header = () => {
   }, [userInfo]);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); // Toggle menu state
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update search query
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Navigate to the search results page or filter the products
+    navigate(`/search?query=${searchQuery}`);
+    setSearchQuery(""); // Clear search input after submission
   };
 
   return (
@@ -31,6 +43,23 @@ const Header = () => {
         <Link to="/" className="text-teal-600 text-2xl font-bold">
           TrendyWear
         </Link>
+
+        {/* Search Bar */}
+        <form onSubmit={handleSearchSubmit} className="flex md:flex-grow mx-4">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="border border-gray-300 rounded-l-md p-2 flex-grow"
+          />
+          <button
+            type="submit"
+            className="bg-teal-600 text-white rounded-r-md px-4"
+          >
+            Search
+          </button>
+        </form>
 
         {/* Mobile Menu Toggle */}
         <div className="flex md:hidden">

@@ -56,6 +56,7 @@ const CartPage = () => {
       dispatch(createOrder(items, totalPrice));
       navigate(`/cart/order`);
       dispatch({ type: CART_RESET });
+      localStorage.removeItem("cartItems");
     } else {
       navigate(`/login?redirect=/cart/order`);
     }

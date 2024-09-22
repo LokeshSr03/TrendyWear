@@ -7,7 +7,6 @@ function SingleOrderScreen() {
   const orderSingle = useSelector((state) => state.orderSingle);
   const { order, loading, error } = orderSingle;
 
-  console.log(order);
   const dispatch = useDispatch();
   const { id } = useParams();
 

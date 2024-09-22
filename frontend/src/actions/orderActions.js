@@ -9,6 +9,9 @@ import {
   ORDER_SINGLE_FAIL,
   ORDER_SINGLE_REQUEST,
   ORDER_SINGLE_SUCCESS,
+  ORDER_DELETE_FAIL,
+  ORDER_DELETE_REQUEST,
+  ORDER_DELETE_SUCCESS,
 } from "../constants/orderConstants";
 
 const createOrder =
@@ -98,5 +101,29 @@ const getOrderById = (id) => async (dispatch, getstate) => {
     });
   }
 };
+const cancelOrder = (id) => async (dispatch, getstate) => {
+  try {
+    dispatch({ type: ORDER_DELETE_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getstate();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.delete(`/api/orders/${id}`, config);
 
-export { createOrder, getOrderById, getOrders };
+    dispatch({ type: ORDER_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export { createOrder, getOrderById, getOrders, cancelOrder };

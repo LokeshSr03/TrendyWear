@@ -21,7 +21,6 @@ const ProfileScreen = () => {
       setUsername(user.username);
       setEmail(user.email);
       setAddress(user.address);
-      console.log(user);
     } else {
       dispatch(getUserProfile());
     }

@@ -71,7 +71,7 @@ function HomeScreen() {
               className="border rounded p-2 w-20"
             />
           </div>
-          <div className="flex flex-col items-center md:flex-row">
+          <div className="flex flex-col items-center md:flex-row justify-center">
             <span>
               Price Range: ₹{minPrice} - ₹{maxPrice}
             </span>
@@ -81,14 +81,6 @@ function HomeScreen() {
               max={1000}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="mx-2 w-full md:w-64"
-            />
-            <input
-              type="range"
-              min={0}
-              max={1000}
-              value={minPrice}
-              onChange={(e) => setMinPrice(Number(e.target.value))}
               className="mx-2 w-full md:w-64"
             />
           </div>

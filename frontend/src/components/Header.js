@@ -45,7 +45,7 @@ const Header = () => {
         </Link>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearchSubmit} className="flex md:flex-grow mx-4">
+        <form onSubmit={handleSearchSubmit} className="flex md:flex-grow mx-32">
           <input
             type="text"
             placeholder="Search..."
@@ -87,18 +87,18 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-teal-600 block">
-                  About
+                <Link to="/cart" className="text-teal-600 block">
+                  Cart
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-teal-600 block">
-                  Services
+                <Link to="/profile" className="text-teal-600 block">
+                  Profile
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-teal-600 block">
-                  Contact
+                <Link to="/login" className="text-teal-600 block">
+                  Login
                 </Link>
               </li>
             </ul>
@@ -107,16 +107,6 @@ const Header = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 items-center">
-          <Link to="/" className="text-gray-700 hover:text-teal-600">
-            Home
-          </Link>
-          <Link to="/about" className="text-gray-700 hover:text-teal-600">
-            About
-          </Link>
-          <Link to="/services" className="text-gray-700 hover:text-teal-600">
-            Services
-          </Link>
-
           {/* Cart Icon */}
           <Link to="/cart" className="text-gray-700 hover:text-teal-600">
             <FiShoppingCart className="h-6 w-6" />

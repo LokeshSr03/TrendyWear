@@ -5,14 +5,14 @@ import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
-
+import cors from "cors";
 import path from "path";
 
 dotenv.config();
 connectDb();
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.get("/", (req, res) => {
   res.send("API is running");
 });

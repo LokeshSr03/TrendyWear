@@ -46,7 +46,7 @@ function HomeScreen() {
         </h1>
         <button
           onClick={() => setShowFilter(!showFilter)}
-          className="bg-teal-600 text-white px-4 py-2 rounded"
+          className="hidden md:bg-teal-600 md:text-white md:px-4 md:py-2 md:rounded"
         >
           {showFilter ? "Hide Price Filter" : "Show Price Filter"}
         </button>

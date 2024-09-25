@@ -45,7 +45,10 @@ const Header = () => {
         </Link>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearchSubmit} className="flex md:flex-grow mx-32">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="hidden md:flex md:flex-grow mx-32"
+        >
           <input
             type="text"
             placeholder="Search..."

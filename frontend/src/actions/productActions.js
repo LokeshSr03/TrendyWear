@@ -61,7 +61,9 @@ const getProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_GET_REQUEST });
 
-    const { data } = await axios.get("/api/products");
+    const { data } = await axios.get(
+      "https://trendywear-backend.onrender.com/api/products"
+    );
 
     dispatch({ type: PRODUCT_GET_SUCCESS, payload: data });
   } catch (error) {

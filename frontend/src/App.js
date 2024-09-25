@@ -13,6 +13,7 @@ import AllOrderScreen from "./screens/AllOrderScreen";
 import SingleOrderScreen from "./screens/SingleOrderScreen";
 import ProductUpdateScreen from "./screens/ProductUpdateScreen";
 import SearchScreen from "./screens/SearchScreen";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -81,7 +81,9 @@ const getSingleProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_SINGLE_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(
+      `https://trendywear-backend.onrender.com/api/products/${id}`
+    );
 
     dispatch({ type: PRODUCT_SINGLE_SUCCESS, payload: data });
   } catch (error) {
@@ -106,7 +108,10 @@ const deleteProduct = (id) => async (dispatch, getstate) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.delete(`/api/products/${id}`, config);
+    const { data } = await axios.delete(
+      `https://trendywear-backend.onrender.com/api/products/${id}`,
+      config
+    );
 
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -133,7 +138,7 @@ const updateProduct =
         },
       };
       const { data } = await axios.put(
-        `/api/products/${id}`,
+        `https://trendywear-backend.onrender.com/api/products/${id}`,
         { name, description, price, stock },
         config
       );

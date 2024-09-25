@@ -43,7 +43,11 @@ const createProduct =
         formData.append("image", image);
       }
 
-      const { data } = await axios.post("/api/products", formData, config);
+      const { data } = await axios.post(
+        "https://trendywear-backend.onrender.com/api/products",
+        formData,
+        config
+      );
 
       dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
     } catch (error) {

@@ -100,6 +100,11 @@ const Header = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/orders" className="text-teal-600 block">
+                  Orders
+                </Link>
+              </li>
+              <li>
                 <Link to="/login" className="text-teal-600 block">
                   Login
                 </Link>

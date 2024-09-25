@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 function OrderScreen() {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, loading, error } = orderCreate;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   return (
     <div className="container mx-auto p-6">
@@ -50,7 +51,7 @@ function OrderScreen() {
                 className="flex items-center space-x-4 border-b pb-4 mb-4"
               >
                 <img
-                  src={`/${item.image}`}
+                  src={`${API_URL}/${item.image}`}
                   alt={item.name}
                   className="w-24 h-24 rounded-md object-cover"
                 />

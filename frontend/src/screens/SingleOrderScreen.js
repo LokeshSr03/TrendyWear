@@ -14,6 +14,8 @@ function SingleOrderScreen() {
     dispatch(getOrderById(id));
   }, [dispatch, id]);
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
@@ -60,7 +62,7 @@ function SingleOrderScreen() {
                   className="flex items-center space-x-4 border-b pb-4 mb-4"
                 >
                   <img
-                    src={`/${item.image}`}
+                    src={`${API_URL}/${item.image}`}
                     alt={item.name}
                     className="w-24 h-24 rounded-md object-cover"
                   />

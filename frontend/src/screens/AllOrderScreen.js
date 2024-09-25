@@ -32,6 +32,7 @@ function AllOrderScreen() {
     await dispatch(cancelOrder(orderId)); // Wait for the cancellation to complete
     dispatch(getOrders()); // Re-fetch the orders after cancelling
   };
+  const API_URL = process.env.REACT_APP_API_URL;
 
   return (
     <div className="container mx-auto p-8 mt-16">
@@ -89,7 +90,7 @@ function AllOrderScreen() {
                       className="flex items-center space-x-4 py-2 rounded-lg bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-300"
                     >
                       <img
-                        src={item.image}
+                        src={`${API_URL}/${item.image}`}
                         alt={item.name}
                         className="w-16 h-16 rounded-lg object-cover"
                       />

@@ -61,6 +61,7 @@ const CartPage = () => {
       navigate(`/login?redirect=/cart/order`);
     }
   };
+  const API_URL = process.env.REACT_APP_API_URL;
 
   return (
     <div className="container mx-auto p-5 lg:p-10 min-h-screen mt-12">
@@ -82,7 +83,7 @@ const CartPage = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <img
-                      src={`/${item.image}`}
+                      src={`${API_URL}/${item.image}`}
                       alt={item.name}
                       className="w-16 h-16 md:w-32 md:h-32 rounded-lg object-cover shadow-lg"
                     />

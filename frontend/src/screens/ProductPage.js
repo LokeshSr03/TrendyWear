@@ -16,6 +16,7 @@ const ProductPage = () => {
       dispatch(getSingleProduct(id));
     }
   }, [dispatch, id, product]);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   return (
     <div className="min-h-screen bg-gray-100 mt-8">
@@ -42,7 +43,7 @@ const ProductPage = () => {
             {/* Product Image */}
             <div className="flex justify-center">
               <img
-                src={`/${product.image}`}
+                src={`${API_URL}/${product.image}`}
                 alt={product.name}
                 className="rounded-lg shadow-lg w-full h-[30rem]"
               />

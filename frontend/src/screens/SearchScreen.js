@@ -21,6 +21,8 @@ const SearchScreen = () => {
     await dispatch(deleteProduct(productId));
     dispatch(getProducts());
   };
+  const API_URL = process.env.REACT_APP_API_URL;
+
   return (
     <div className="max-w-7xl mx-auto p-4 mt-24">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
@@ -39,7 +41,7 @@ const SearchScreen = () => {
             className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300 ease-in-out"
           >
             <img
-              src={product.image}
+              src={`${API_URL}/${product.image}`}
               alt={product.name}
               className="w-full h-60 object-cover rounded-t-md mb-4"
             />

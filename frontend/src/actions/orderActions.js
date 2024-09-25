@@ -13,6 +13,7 @@ import {
   ORDER_DELETE_REQUEST,
   ORDER_DELETE_SUCCESS,
 } from "../constants/orderConstants";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const createOrder =
   (items, total_amount, status) => async (dispatch, getstate) => {
@@ -31,7 +32,7 @@ const createOrder =
       };
 
       const { data } = await axios.post(
-        `/api/orders`,
+        `${API_URL}/api/orders`,
         {
           items,
           total_amount,
@@ -63,7 +64,7 @@ const getOrders = () => async (dispatch, getstate) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get("/api/orders", config);
+    const { data } = await axios.get(`${API_URL}/api/orders`, config);
 
     dispatch({ type: ORDER_GET_SUCCESS, payload: data });
   } catch (error) {
@@ -88,7 +89,7 @@ const getOrderById = (id) => async (dispatch, getstate) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`/api/orders/${id}`, config);
+    const { data } = await axios.get(`${API_URL}/api/orders/${id}`, config);
 
     dispatch({ type: ORDER_SINGLE_SUCCESS, payload: data });
   } catch (error) {
@@ -112,7 +113,7 @@ const cancelOrder = (id) => async (dispatch, getstate) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.delete(`/api/orders/${id}`, config);
+    const { data } = await axios.delete(`${API_URL}/api/orders/${id}`, config);
 
     dispatch({ type: ORDER_DELETE_SUCCESS });
   } catch (error) {

@@ -7,12 +7,13 @@ import {
   CART_REMOVE_SUCCESS,
 } from "../constants/cartConstants";
 import axios from "axios";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const addCart = (id, quantity) => async (dispatch, getstate) => {
   try {
     dispatch({ type: CART_ADD_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`${API_URL}/api/products/${id}`);
 
     dispatch({ type: CART_ADD_SUCCESS, payload: { ...data, quantity } });
 

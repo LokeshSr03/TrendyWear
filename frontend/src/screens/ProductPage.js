@@ -87,9 +87,6 @@ const ProductPage = () => {
                     Add to Cart
                   </button>
                 </Link>
-                <button className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 transition">
-                  Buy Now
-                </button>
               </div>
 
               <div className="mt-6">

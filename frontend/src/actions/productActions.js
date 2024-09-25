@@ -16,6 +16,7 @@ import {
   PRODUCT_UPDATE_REQUEST,
 } from "../constants/productConstants";
 import axios from "axios";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const createProduct =
   (name, description, price, stock, image) => async (dispatch, getState) => {
@@ -44,7 +45,7 @@ const createProduct =
       }
 
       const { data } = await axios.post(
-        "https://trendywear-backend.onrender.com/api/products",
+        `${API_URL}/api/products`,
         formData,
         config
       );
@@ -65,9 +66,7 @@ const getProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_GET_REQUEST });
 
-    const { data } = await axios.get(
-      "https://trendywear-backend.onrender.com/api/products"
-    );
+    const { data } = await axios.get(`${API_URL}/api/products`);
 
     dispatch({ type: PRODUCT_GET_SUCCESS, payload: data });
   } catch (error) {
@@ -85,9 +84,7 @@ const getSingleProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_SINGLE_REQUEST });
 
-    const { data } = await axios.get(
-      `https://trendywear-backend.onrender.com/api/products/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/products/${id}`);
 
     dispatch({ type: PRODUCT_SINGLE_SUCCESS, payload: data });
   } catch (error) {
@@ -113,7 +110,7 @@ const deleteProduct = (id) => async (dispatch, getstate) => {
       },
     };
     const { data } = await axios.delete(
-      `https://trendywear-backend.onrender.com/api/products/${id}`,
+      `${API_URL}/api/products/${id}`,
       config
     );
 
@@ -142,7 +139,7 @@ const updateProduct =
         },
       };
       const { data } = await axios.put(
-        `https://trendywear-backend.onrender.com/api/products/${id}`,
+        `${API_URL}/api/products/${id}`,
         { name, description, price, stock },
         config
       );

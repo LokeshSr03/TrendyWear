@@ -14,6 +14,7 @@ function HomeScreen() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [showFilter, setShowFilter] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     dispatch(getProducts());
@@ -102,9 +103,9 @@ function HomeScreen() {
                 className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300 ease-in-out"
               >
                 <img
-                  src={product.image}
+                  src={`${API_URL}/${product.image}`}
                   alt={product.name}
-                  className="w-full h-60 object-cover rounded-t-md mb-4"
+                  className="w-full h-64 object-cover rounded-t-md mb-4"
                 />
                 <div className="flex flex-col items-center">
                   <h2 className="text-lg font-bold mb-2 text-gray-900">

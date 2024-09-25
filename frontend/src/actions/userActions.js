@@ -16,6 +16,7 @@ import {
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
 import { CART_RESET } from "../constants/cartConstants";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const registerUser = (username, email, password) => async (disptch) => {
   try {
@@ -27,7 +28,7 @@ const registerUser = (username, email, password) => async (disptch) => {
       },
     };
     const { data } = await axios.post(
-      `/api/users/register`,
+      `${API_URL}/api/users/register`,
       {
         username,
         email,
@@ -61,7 +62,7 @@ const loginUser = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "/api/users/login",
+      `${API_URL}/api/users/login`,
       { email, password },
       config
     );
@@ -94,7 +95,10 @@ const getUserProfile = () => async (dispatch, getstate) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${userInfo._id}`, config);
+    const { data } = await axios.get(
+      `${API_URL}/api/users/${userInfo._id}`,
+      config
+    );
 
     dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
   } catch (error) {
@@ -124,7 +128,7 @@ const updateUser =
       };
 
       const { data } = await axios.put(
-        `/api/users/${userInfo._id}`,
+        `${API_URL}/api/users/${userInfo._id}`,
         {
           username,
           email,
